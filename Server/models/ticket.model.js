@@ -21,7 +21,7 @@ function setTicket(datos) {
 }
 function existNomTicket(datos) {
     console.log("Funcion existNomTicket",datos)
-    return helpers.mysqlQuery('SET', conn_mysql,
+    return helpers.mysqlQuery('POST', conn_mysql,
     `INSERT INTO tiket (idfolios,fecha_registro,idtipo_servicio,asunto,mensaje,foto1,foto2,foto3,foto4,solucion,firma,estado_ticket)
     VALUES (@idfolios,@fecha_registro,@idtipo_servicio,@asunto,@mensaje,@foto1,@foto2,@foto3,@foto4,@solucion,@firma,@estado_ticket)`
     ,datos)

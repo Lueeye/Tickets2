@@ -2,6 +2,7 @@
 const activostipoModels = require ('../models/tipoActivos.model');
 module.exports = {
     fnGetTipoActivos: fnGetTipoActivos,
+    setActivos:setActivos
 }
 
 function fnGetTipoActivos(){
@@ -13,4 +14,18 @@ function fnGetTipoActivos(){
             resolve(!result.err ? {ok:true, activos:result.result}: reject({ok:false, error:'Error al consultar Tipo de Activos'}))
         })
     })
+}
+
+function setActivos(datos){
+    return new Promise(function (resolve) {
+        activostipoModels.existNomActivo(datos)
+            .then(function (result) {
+                console.log("👀",result.result[1])
+                if (result.result[1]) {
+                    resolve({ ok: false, error: 'Ya Existe' });
+                } else {
+                    resolve({ ok: true, Error: result.result[0] });
+                }
+            });
+    });
 }

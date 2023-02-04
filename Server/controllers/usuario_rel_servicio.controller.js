@@ -2,6 +2,7 @@
 const RelacionModels = require ('../models/usuario_rel_servicio.model');
 module.exports = {
     fnGetRelacion: fnGetRelacion,
+    fnSetRelacion:fnSetRelacion
 }
 
 function fnGetRelacion(){
@@ -14,4 +15,18 @@ function fnGetRelacion(){
             resolve(!result.err ? {ok:true, usuario:result.result}: reject({ok:false, error:'Error al consultar relacion de usuario y sevicio'}))
         })
     })
+}
+
+function fnSetRelacion(datos){
+    return new Promise(function (resolve) {
+        RelacionModels.existNomRelacion(datos)
+            .then(function (result) {
+                console.log("👀",result.result[1])
+                if (result.result[1]) {
+                    resolve({ ok: false, error: 'Ya Existe' });
+                } else {
+                    resolve({ ok: true, Error: result.result[0] });
+                }
+            });
+    });
 }
